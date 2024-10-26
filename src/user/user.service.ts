@@ -11,6 +11,9 @@ export class UserService {
     async profileInfo(id: Types.ObjectId): Promise<User> {
         return this.userModel.findById(id)
     }
+    async findOne(email: string) {
+        return this.userModel.findOne({ email });
+    }
 
     async createUser(email: string, passsword: string): Promise<User> {
         const hashedPassword = await hash(passsword, 10);
