@@ -29,6 +29,7 @@
     "bcryptjs": "^2.4.3",
     "helmet": "^8.0.0",
     "mongoose": "^8.7.2",
+    "nodemailer": "^6.9.15",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
@@ -40,6 +41,7 @@
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
+    "@types/nodemailer": "^6.4.16",
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",

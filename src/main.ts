@@ -13,8 +13,8 @@ async function bootstrap() {
   // Add API URI versioning
   app.enableVersioning({
     type: VersioningType.URI,
-    prefix: "api/v",
-    defaultVersion: "1"
+    prefix: 'api/v',
+    defaultVersion: '1',
   });
   await app.listen(3000);
 }

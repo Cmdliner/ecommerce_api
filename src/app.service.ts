@@ -7,6 +7,6 @@ export class AppService {
   }
 
   getServerStatus(): { active: string } {
-    return { "active": "The hood is up commandliner" }
+    return { active: 'The hood is up commandliner' };
   }
 }
