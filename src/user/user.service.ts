@@ -27,7 +27,7 @@ export class UserService {
   async createUser(email: string, username: string, password: string): Promise<UserDocument> {
     const userExists = await this.userModel.findOne({ $or: [{ email }, { username }] });
     if (userExists)
-      throw new BadRequestException('User with that email already exists');
+      throw new BadRequestException('Email or password in use');
 
     const hashedPassword = await hash(password, 10);
     const user = this.userModel.create({ email, username, password: hashedPassword });

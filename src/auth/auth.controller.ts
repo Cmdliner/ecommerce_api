@@ -1,8 +1,10 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseFilters } from '@nestjs/common';
 import { CreateUserDto, UserLoginDto } from 'src/dtos/create-user.dto';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
+import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
 
+@UseFilters(HttpExceptionFilter)
 @Controller('auth')
 export class AuthController {
     constructor(
