@@ -12,7 +12,7 @@ import { hash } from 'bcryptjs';
 export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   async profileInfo(id: Types.ObjectId): Promise<UserDocument> {
     return this.userModel.findById(id);
@@ -24,13 +24,13 @@ export class UserService {
     return user;
   }
 
-  async createUser(email: string, passsword: string): Promise<UserDocument> {
-    const userExists = await this.userModel.findOne({ email });
+  async createUser(email: string, username: string, password: string): Promise<UserDocument> {
+    const userExists = await this.userModel.findOne({ $or: [{ email }, { username }] });
     if (userExists)
       throw new BadRequestException('User with that email already exists');
 
-    const hashedPassword = await hash(passsword, 10);
-    const user = this.userModel.create({ email, password: hashedPassword });
+    const hashedPassword = await hash(password, 10);
+    const user = this.userModel.create({ email, username, password: hashedPassword });
     return user;
   }
 }

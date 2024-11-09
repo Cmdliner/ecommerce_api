@@ -13,7 +13,7 @@ export class AuthController {
     @Post('register')
     @HttpCode(201)
     async register(@Body() body: CreateUserDto) {
-        const user = await this.userService.createUser(body.email, body.password);
+        const user = await this.userService.createUser(body.email, body.username, body.password);
         return { success: true, user };
     }
 
