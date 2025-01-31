@@ -2,16 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { readFileSync } from 'fs';
 import { createTransport } from 'nodemailer';
-// import path from 'path';
+import path from 'path';
 
 @Injectable()
 export class EmailService {
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService) { }
 
   transporter = createTransport({
     host: this.configService.get<string>('EMAIL_HOST'),
     secure:
-      this.configService.get<string>('EMAIL_HOST') == 'PRODUCTION'
+      this.configService.get<string>('NODE_ENV') === 'production'
         ? true
         : false,
     auth: {
@@ -26,14 +26,20 @@ export class EmailService {
   }
 
   async sendPasswordResetMail(email: string, code: string): Promise<boolean> {
-    const pathToEmail = "/home/yemi/Projects/shop_api/templates/reset_password.html";
-    await this.transporter.sendMail({
-      from: '',
-      to: email,
-      subject: 'Password Reset',
-      html: this.parseMailFile(pathToEmail, code),
-    });
-    return true;
-  }
+    const pathToEmail = path.join(__dirname, "../../templates/reset_password.html");
+    try {
+      await this.transporter.sendMail({
+        from: '"Kolzsticks Solutions"',
+        to: email,
+        subject: 'Password Reset',
+        html: this.parseMailFile(pathToEmail, code),
+      });
+      return true;
 
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+
+  }
 }
