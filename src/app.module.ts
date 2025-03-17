@@ -5,14 +5,15 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { ProductController } from './product/product.controller';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGO_URI),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.local' }),
+    MongooseModule.forRoot(process.env.DB_URI),
     UserModule,
     AuthModule,
+    ProductModule
   ],
   controllers: [AppController],
   providers: [AppService],

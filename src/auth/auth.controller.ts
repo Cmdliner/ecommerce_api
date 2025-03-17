@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Post, UseFilters } from '@nestjs/common';
-import { CreateUserDto, UserLoginDto } from 'src/dtos/create-user.dto';
+import { CreateUserDto, UserLoginDto } from 'src/dtos/user.dto';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
@@ -15,8 +15,10 @@ export class AuthController {
     @Post('register')
     @HttpCode(201)
     async register(@Body() body: CreateUserDto) {
+        console.log({ body });
         const user = await this.userService.createUser(body.email, body.username, body.password);
-        return { success: true, user };
+        const { password, ...userObj } = user.toJSON();
+        return userObj;
     }
 
     @Post('login')
@@ -25,7 +27,7 @@ export class AuthController {
             body.email,
             body.password,
         );
-        return { success: true, access_token };
+        return { access_token };
     }
 
     @Post('forgot-password')

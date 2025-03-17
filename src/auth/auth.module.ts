@@ -10,7 +10,6 @@ import { ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     UserModule,
-    ConfigService,   
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

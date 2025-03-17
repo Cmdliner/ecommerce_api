@@ -38,8 +38,6 @@ export class AuthService {
         const otp = `${randomInt(10_000, 100_000)}`;
         const emailSent = await this.emailService.sendPasswordResetMail(email, otp);
 
-        if(!emailSent) {
-            throw new InternalServerErrorException("Error sending email");
-        }
+        if(!emailSent) throw new InternalServerErrorException("Error sending email");
     }
 }

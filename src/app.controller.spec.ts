@@ -15,8 +15,9 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+
+    it('should return "The hood is up Commandliner"', () => {
+      expect(appController.serverStatus()).toBe("The hood is upp Commandliner")
+    })
   });
 });

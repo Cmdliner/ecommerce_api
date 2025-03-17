@@ -25,11 +25,7 @@ export class UserService {
         return user;
     }
 
-    async createUser(
-        email: string,
-        username: string,
-        password: string,
-    ): Promise<UserDocument> {
+    async createUser(email: string, username: string, password: string): Promise<UserDocument> {
         const userExists = await this.userModel.findOne({
             $or: [{ email }, { username }],
         });
@@ -47,7 +43,7 @@ export class UserService {
     async updateResetPwdOtp(email: string, otp: string) {
         const user = await this.findOne(email);
 
-        if(!user) throw new NotFoundException("User not found!");
+        if (!user) throw new NotFoundException("User not found!");
         user.resetPwdOtp = otp;
         await user.save();
 

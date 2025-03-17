@@ -19,8 +19,11 @@ export class User {
     @Prop({ required: true })
     password: string;
 
-    @Prop({ expires: 5 * 60 * 1000 })
+    @Prop({ expires: 10 * 60 * 1000 })
     resetPwdOtp: string;
+
+    @Prop({expires: 10 * 6 * 1000 })
+    emailVerificationOtp: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
