@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
+import { SchemaTimestampOpts } from 'src/common/lib';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: SchemaTimestampOpts })
 export class User {
 
     @IsEmail()
@@ -20,10 +21,10 @@ export class User {
     password: string;
 
     @Prop({ expires: 10 * 60 * 1000 })
-    resetPwdOtp: string;
+    reset_pwd_otp: string;
 
-    @Prop({expires: 10 * 6 * 1000 })
-    emailVerificationOtp: string;
+    @Prop({ expires: 10 * 6 * 1000 })
+    email_verification_otp: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

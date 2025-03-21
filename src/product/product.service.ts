@@ -3,6 +3,8 @@ import { Product, ProductDocument } from "./product.schema";
 import { Model, Types } from "mongoose";
 import { NotFoundException } from "@nestjs/common";
 
+type CreateProduct = Omit<Product, 'deleted_at' | 'rating'>;
+
 export class ProductService {
 
     constructor(
@@ -37,16 +39,11 @@ export class ProductService {
         return this.productModel.find({ seller });
     }
 
-    async createProduct(product: Omit<Product, 'deleted_at'>): Promise<ProductDocument> {
-        return this.productModel.create({
-            name: product.name,
-            seller: product.seller,
-            description: product.description,
-            stock: product.stock
-        });
+    async createProduct(product: CreateProduct): Promise<ProductDocument> {
+        return this.productModel.create(product);
     }
 
-    async updateProduct(id: Types.ObjectId, prod: Omit<Product, 'seller' | 'deleted_at'>) {
+    async updateProduct(id: Types.ObjectId, prod: Partial<Omit<Product, 'deleted_at'>>) {
         const product = await this.findOne(id);
         if (!product) throw new NotFoundException("Product not found");
 

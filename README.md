@@ -3,7 +3,7 @@
 
 ## BUGS
 - Cant access env var in constants file
-- cant read file path in eamil service's parsemailFile fn
+- cant read file path in email service's parsemailFile fn
 - Better error handling
 
 ## TODOS
