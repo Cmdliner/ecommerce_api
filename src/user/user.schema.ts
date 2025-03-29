@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { SchemaTimestampOpts } from 'src/common/lib';
+import { ProductInCart } from 'src/order/order.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -25,6 +26,9 @@ export class User {
 
     @Prop({ expires: 10 * 6 * 1000 })
     email_verification_otp: string;
+
+    @Prop({type: [ProductInCart], ref: 'Product'})
+    cart: ProductInCart[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

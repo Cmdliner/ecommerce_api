@@ -1,4 +1,5 @@
-import { IsAscii, IsDefined, IsEmail, IsNumberString, IsStrongPassword, MinLength } from "class-validator";
+import { IsAscii, IsDefined, IsEmail, IsMongoId, IsNumberString, IsStrongPassword, MinLength } from "class-validator";
+import { Types } from "mongoose";
 
 export class CreateUserDto {
     @IsEmail()

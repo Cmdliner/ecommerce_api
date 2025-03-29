@@ -10,13 +10,12 @@ import { hash } from 'bcryptjs';
 
 @Injectable()
 export class UserService {
-
     constructor(
-        @InjectModel(User.name) private readonly user_model: Model<UserDocument>,
+        @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     ) { }
 
     async findById(user_id: Types.ObjectId) {
-        const user = await this.user_model.findById(user_id);
+        const user = await this.userModel.findById(user_id);
         if(!user) throw new NotFoundException('User not found');
         return user;
     }
@@ -26,20 +25,20 @@ export class UserService {
     }
 
     async findOne(email: string): Promise<UserDocument> {
-        const user = this.user_model.findOne({ email });
+        const user = this.userModel.findOne({ email });
         if (!user) throw new NotFoundException('User not found!');
 
         return user;
     }
 
     async createUser(email: string, username: string, password: string): Promise<UserDocument> {
-        const userExists = await this.user_model.findOne({
+        const userExists = await this.userModel.findOne({
             $or: [{ email }, { username }],
         });
-        if (userExists) throw new BadRequestException('Email or password in use');
+        if (userExists) throw new BadRequestException('Email or username in use');
 
         const hashedPassword = await hash(password, 10);
-        const user = this.user_model.create({
+        const user = this.userModel.create({
             email,
             username,
             password: hashedPassword,

@@ -6,8 +6,9 @@ import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
-import { OrderModule } from './order/order.module';
 import { PaymentModule } from './payment/payment.module';
+import { OrderController } from './order/order.controller';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -16,10 +17,10 @@ import { PaymentModule } from './payment/payment.module';
     UserModule,
     AuthModule,
     ProductModule,
-    OrderModule,
-    PaymentModule
+    PaymentModule,
+    OrderModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, OrderController],
   providers: [AppService],
 })
 export class AppModule {}
