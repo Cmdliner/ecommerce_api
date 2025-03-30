@@ -4,11 +4,12 @@ import { UserModule } from 'src/user/user.module';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { EmailService } from 'src/common/email.service';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     UserModule,
+    ConfigModule,
     JwtModule.register({
       global: true,
       secret: process.env.ACCESS_TOKEN_SECRET,
@@ -19,4 +20,4 @@ import { ConfigService } from '@nestjs/config';
   providers: [AuthService, ConfigService, EmailService],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }
